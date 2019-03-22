@@ -1,20 +1,14 @@
 package imagescaler.infrastructure.web;
 
-import imagescaler.domain.Image;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-public class ImageController {
-
-    @RequestMapping(value = "/upload", method = RequestMethod.GET)
-    public void upload() {
-
-    }
-
-    @RequestMapping(value = "/images", method = RequestMethod.GET)
-    public Image images() {
-        return new Image("image", new Byte[1]);
+class ImageController {
+    @PostMapping("/upload")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public UploadFileResponse status(@RequestParam("file") MultipartFile file, @RequestHeader("Image-Scaler-Image-Name") String name, @RequestHeader("Image-Scaler-Image-Uuid") String uuid) {
+        return new UploadFileResponse(uuid, name, "/list", file.getContentType(), file.getSize());
     }
 }
