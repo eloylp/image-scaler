@@ -11,6 +11,9 @@ services:
       - MONGO_URI=mongodb://mongodb/image_scaler
     networks:
       - image-scaler
+    depends_on:
+      - redis
+      - mongodb
   redis:
     image: redis:5.0.4
     restart: always
