@@ -22,9 +22,11 @@ services:
         aliases:
           - 'redis'
   mongodb:
-    image: mongo:4.1
+    image: mongo:4.0
     volumes:
       - mongodb:/data/db
+    ports:
+      - 27017:27017
     networks:
       image-scaler:
         aliases:

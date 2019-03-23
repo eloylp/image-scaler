@@ -39,7 +39,6 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="http://wzrd.in/standalone/uuid%2Fv4@latest"></script>
 <script>
   (() => {
 
@@ -50,20 +49,19 @@
     submitButton.addEventListener('click', async () => {
       const file = fileInput.files[0]
       const form = new FormData()
-      form.append("file", file)
+      form.append('image', file)
+      form.append('name', nameInput.value)
       try {
-        await axios({
+        const response = await axios({
           method: 'POST',
           url: '/upload',
           data: form,
           headers: {
             'Content-Type': 'multipart/form-data',
-            'Image-Scaler-Image-Uuid': uuidv4(),
-            'Image-Scaler-Image-Name': nameInput.value
           }
         })
-        alert('image uploaded !!')
-      }catch (e) {
+        alert(`image uploaded !! Your uuid: ${response.data.uuid}`)
+      } catch (e) {
         alert(e)
       }
     })
