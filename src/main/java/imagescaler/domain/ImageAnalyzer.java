@@ -1,7 +1,7 @@
 package imagescaler.domain;
 
-import java.io.InputStream;
+import java.io.BufferedInputStream;
 
 public interface ImageAnalyzer {
-    ImageInfo perform(InputStream image) throws ImageScalerException;
+    ImageInfo perform(BufferedInputStream image) throws ImageScalerException;
 }

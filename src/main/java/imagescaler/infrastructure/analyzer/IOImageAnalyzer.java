@@ -1,4 +1,4 @@
-package imagescaler.infrastructure.domain;
+package imagescaler.infrastructure.analyzer;
 
 import imagescaler.domain.ImageAnalyzer;
 import imagescaler.domain.ImageInfo;
@@ -8,18 +8,17 @@ import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URLConnection;
 
 @Component
 public class IOImageAnalyzer implements ImageAnalyzer {
 
     @Override
-    public ImageInfo perform(InputStream image) throws ImageScalerException {
+    public ImageInfo perform(BufferedInputStream image) throws ImageScalerException {
         try {
-            BufferedImage ioImage = ImageIO.read(image);
             String mimeType = URLConnection.guessContentTypeFromStream(image);
+            BufferedImage ioImage = ImageIO.read(image);
             Scale scale = new Scale(ioImage.getWidth(), ioImage.getHeight());
             return new ImageInfo(mimeType, scale, image.available());
         } catch (IOException e) {

@@ -2,18 +2,18 @@ package imagescaler.domain;
 
 public class ImageInfo {
 
-    private String mimeType;
+    private String contentType;
     private Scale scale;
     private int size;
 
-    public ImageInfo(String mimeType, Scale scale, int size) {
-        this.mimeType = mimeType;
+    public ImageInfo(String contentType, Scale scale, int size) {
+        this.contentType = contentType;
         this.scale = scale;
         this.size = size;
     }
 
-    public String getMimeType() {
-        return mimeType;
+    public String getContentType() {
+        return contentType;
     }
 
     public Scale getScale() {

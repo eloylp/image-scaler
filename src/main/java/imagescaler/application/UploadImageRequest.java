@@ -1,13 +1,13 @@
 package imagescaler.application;
 
-import java.io.InputStream;
+import java.io.BufferedInputStream;
 
 public class UploadImageRequest {
 
     private String name;
-    private InputStream data;
+    private BufferedInputStream data;
 
-    public UploadImageRequest(String name, InputStream data) {
+    public UploadImageRequest(String name, BufferedInputStream data) {
         this.name = name;
         this.data = data;
     }
@@ -16,7 +16,7 @@ public class UploadImageRequest {
         return name;
     }
 
-    InputStream getData() {
+    BufferedInputStream getData() {
         return data;
     }
 }
