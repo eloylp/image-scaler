@@ -1,4 +1,4 @@
-package imagescaler.application;
+package imagescaler.application.backend;
 
 import imagescaler.domain.Scale;
 import org.junit.Test;

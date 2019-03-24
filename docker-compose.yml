@@ -4,6 +4,7 @@ services:
     build:
       dockerfile: docker/Dockerfile
       context: .
+    command: -Dloader.main=imagescaler.infrastructure.web.ImageScaler org.springframework.boot.loader.PropertiesLauncher
     ports:
       - "3000:3000"
     restart: always
@@ -13,6 +14,24 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - MAX_UPLOAD_SIZE=5048576
+      - TOPIC=process::images
+    networks:
+      - image-scaler
+    depends_on:
+      - redis
+      - mongodb
+  backend:
+    build:
+      dockerfile: docker/Dockerfile
+      context: .
+    command: -Dloader.main=imagescaler.infrastructure.backend.ScalerConsumer org.springframework.boot.loader.PropertiesLauncher
+    restart: always
+    environment:
+      - MONGO_URI=mongodb://mongodb/image_scaler
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - TARGET_SCALES=100x100,300x300
+      - TOPIC=process::images
     networks:
       - image-scaler
     depends_on:

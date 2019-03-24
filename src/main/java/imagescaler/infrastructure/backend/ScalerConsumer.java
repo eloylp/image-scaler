@@ -1,25 +1,29 @@
-package imagescaler.infrastructure.web;
+package imagescaler.infrastructure.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @PropertySources({
-        @PropertySource("classpath:/properties/web.properties"),
+        @PropertySource("classpath:/properties/backend.properties"),
 })
-@SpringBootApplication
 @ComponentScan(basePackages = {
-        "imagescaler.application.web",
-        "imagescaler.infrastructure.analyzer",
-        "imagescaler.infrastructure.persistence.mongo",
-        "imagescaler.infrastructure.web"
+        "imagescaler.application.backend",
+        "imagescaler.domain",
+        "imagescaler.infrastructure.backend",
+        "imagescaler.infrastructure.scaler",
+        "imagescaler.infrastructure.persistence.mongo"
 })
 @EnableMongoRepositories(basePackages = {"imagescaler.infrastructure.persistence.mongo"})
-public class ImageScaler {
+@SpringBootApplication
+public class ScalerConsumer {
+
     public static void main(String[] args) {
-        SpringApplication.run(ImageScaler.class, args);
+        ApplicationContext ctx = SpringApplication.run(ScalerConsumer.class, args);
     }
+
 }

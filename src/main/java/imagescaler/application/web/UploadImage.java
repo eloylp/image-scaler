@@ -1,4 +1,4 @@
-package imagescaler.application;
+package imagescaler.application.web;
 
 import imagescaler.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +12,13 @@ public class UploadImage {
 
     private final ImageAnalyzer imageAnalyzer;
     private final ImageRepository imageRepository;
+    private ImageEnqueuer imageEnqueuer;
 
     @Autowired
-    UploadImage(ImageAnalyzer imageAnalyzer, ImageRepository imageRepository) {
+    UploadImage(ImageAnalyzer imageAnalyzer, ImageRepository imageRepository, ImageEnqueuer imageEnqueuer) {
         this.imageAnalyzer = imageAnalyzer;
         this.imageRepository = imageRepository;
+        this.imageEnqueuer = imageEnqueuer;
     }
 
     public UploadImageResponse perform(UploadImageRequest uploadImageRequest) throws ImageScalerException {
@@ -34,6 +36,7 @@ public class UploadImage {
             );
             image.markAsOriginal();
             this.imageRepository.save(image);
+            this.imageEnqueuer.perform(image);
             return new UploadImageResponse(image.getUuid());
         } catch (IOException e) {
             throw new ImageScalerException("Cannot read image stream in upload.");

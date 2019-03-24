@@ -1,4 +1,4 @@
-package imagescaler.application;
+package imagescaler.application.web;
 
 import imagescaler.domain.Image;
 import imagescaler.domain.ImageRepository;

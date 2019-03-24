@@ -1,9 +1,9 @@
 package imagescaler.infrastructure.web;
 
-import imagescaler.application.ListImages;
-import imagescaler.application.UploadImage;
-import imagescaler.application.UploadImageRequest;
-import imagescaler.application.UploadImageResponse;
+import imagescaler.application.web.ListImages;
+import imagescaler.application.web.UploadImage;
+import imagescaler.application.web.UploadImageRequest;
+import imagescaler.application.web.UploadImageResponse;
 import imagescaler.domain.Image;
 import imagescaler.domain.ImageNotFoundException;
 import imagescaler.domain.ImageScalerException;

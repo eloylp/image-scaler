@@ -1,4 +1,4 @@
-package imagescaler.application;
+package imagescaler.application.web;
 
 public class UploadImageResponse {
 

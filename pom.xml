@@ -65,8 +65,8 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <start-class>imagescaler.infrastructure.web.ImageScaler</start-class>
     </properties>
-
     <build>
         <plugins>
             <plugin>

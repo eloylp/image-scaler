@@ -1,11 +1,12 @@
-package imagescaler.application;
+package imagescaler.application.backend;
 
 import imagescaler.domain.Scale;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Component
 class ScalesMapper {
 
     List<Scale> map(String rawScales) {

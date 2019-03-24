@@ -2,6 +2,7 @@ package imagescaler.infrastructure.scaler;
 
 import imagescaler.domain.*;
 import imagescaler.domain.Image;
+import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,6 +11,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+@Component
 public class IOImageScalerEngine implements ImageScalerEngine {
 
     @Override

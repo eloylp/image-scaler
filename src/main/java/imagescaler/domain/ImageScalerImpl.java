@@ -1,13 +1,17 @@
 package imagescaler.domain;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class ImageScalerImpl implements ImageScaler {
 
     private ImageScalerEngine imageScalerEngine;
-
+    @Autowired
     ImageScalerImpl(ImageScalerEngine imageScalerEngine) {
         this.imageScalerEngine = imageScalerEngine;
     }

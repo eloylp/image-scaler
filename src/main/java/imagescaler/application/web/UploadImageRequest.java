@@ -1,4 +1,4 @@
-package imagescaler.application;
+package imagescaler.application.web;
 
 import java.io.InputStream;
 
