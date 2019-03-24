@@ -1,17 +1,15 @@
 package imagescaler.domain;
 
-import java.io.BufferedInputStream;
-
 public class Image {
 
     private String uuid;
     private String groupUuid;
     private String name;
     private ImageInfo imageInfo;
-    private BufferedInputStream data;
+    private byte[] data;
     private boolean original;
 
-    public Image(String name, ImageInfo imageInfo, BufferedInputStream data) {
+    public Image(String name, ImageInfo imageInfo, byte[] data) {
         this.uuid = java.util.UUID.randomUUID().toString();
         this.groupUuid = java.util.UUID.randomUUID().toString();
         this.name = name;
@@ -40,7 +38,7 @@ public class Image {
         return imageInfo;
     }
 
-    public BufferedInputStream getData() {
+    public byte[] getData() {
         return data;
     }
 

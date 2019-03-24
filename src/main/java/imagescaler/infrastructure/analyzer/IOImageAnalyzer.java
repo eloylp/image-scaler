@@ -15,14 +15,14 @@ import java.net.URLConnection;
 public class IOImageAnalyzer implements ImageAnalyzer {
 
     @Override
-    public ImageInfo perform(BufferedInputStream image) throws ImageScalerException {
+    public ImageInfo perform(byte[] image) throws ImageScalerException {
         try {
-            String mimeType = URLConnection.guessContentTypeFromStream(image);
-            BufferedImage ioImage = ImageIO.read(image);
+            String mimeType = URLConnection.guessContentTypeFromStream(new ByteArrayInputStream(image));
+            BufferedImage ioImage = ImageIO.read(new ByteArrayInputStream(image));
             Scale scale = new Scale(ioImage.getWidth(), ioImage.getHeight());
-            return new ImageInfo(mimeType, scale, image.available());
+            return new ImageInfo(mimeType, scale, image.length);
         } catch (IOException e) {
-            throw new ImageScalerException("Cannot read input image.");
+            throw new ImageScalerException("Cannot read input image in analyzer.");
         }
     }
 }

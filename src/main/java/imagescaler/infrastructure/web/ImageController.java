@@ -5,11 +5,16 @@ import imagescaler.application.UploadImage;
 import imagescaler.application.UploadImageRequest;
 import imagescaler.application.UploadImageResponse;
 import imagescaler.domain.Image;
+import imagescaler.domain.ImageNotFoundException;
 import imagescaler.domain.ImageScalerException;
+import imagescaler.infrastructure.persistence.mongo.ImageMongoRepository;
+import imagescaler.infrastructure.persistence.mongo.ImageStream;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -22,11 +27,13 @@ class ImageController {
 
     private UploadImage uploadImage;
     private ListImages listImages;
+    private ImageMongoRepository imageMongoRepository;
 
     @Autowired
-    ImageController(UploadImage uploadImage, ListImages listImages) {
+    ImageController(UploadImage uploadImage, ListImages listImages, ImageMongoRepository imageMongoRepository) {
         this.uploadImage = uploadImage;
         this.listImages = listImages;
+        this.imageMongoRepository = imageMongoRepository;
     }
 
     @PostMapping("/upload")
@@ -45,5 +52,18 @@ class ImageController {
     @ResponseStatus(HttpStatus.OK)
     public List<Image> images() throws ImageScalerException {
         return this.listImages.perform();
+    }
+
+    @GetMapping("/images/{uuid}")
+    public void image(@PathVariable("uuid") String uuid, HttpServletResponse response) throws ImageScalerException, IOException {
+        try {
+            ImageStream image = this.imageMongoRepository.findByUUIDForStream(uuid);
+            response.addHeader("Content-Type", image.getContentType());
+            response.addHeader("Content-Length", Integer.toString(image.getContentLength()));
+            IOUtils.copy(image.getData(), response.getOutputStream());
+            response.flushBuffer();
+        } catch (ImageNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
 }
