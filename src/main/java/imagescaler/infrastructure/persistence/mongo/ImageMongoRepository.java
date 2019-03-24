@@ -107,17 +107,19 @@ public class ImageMongoRepository implements ImageRepository {
     public Image findByUUID(String uuid) throws ImageScalerException {
 
         GridFSFile file = gridFsOperations.findOne(new Query().addCriteria(Criteria.where("metadata.uuid").is(uuid)));
+        throwImageNotFoundException(uuid, file);
+        return mapImage(file, true);
+    }
+
+    private void throwImageNotFoundException(String uuid, GridFSFile file) throws ImageNotFoundException {
         if (file == null) {
             throw new ImageNotFoundException("Cannot find image with uuid: " + uuid);
         }
-        return mapImage(file, true);
     }
 
     public ImageStream findByUUIDForStream(String uuid) throws ImageScalerException {
         GridFSFile file = gridFsOperations.findOne(new Query().addCriteria(Criteria.where("metadata.uuid").is(uuid)));
-        if (file == null) {
-            throw new ImageNotFoundException("Cannot find image with uuid: " + uuid);
-        }
+        throwImageNotFoundException(uuid, file);
         InputStream imageStream = this.gridFSBuckets.openDownloadStream(file.getObjectId());
         Document metadata = file.getMetadata();
         return new ImageStream(metadata.getString("contentType"), metadata.getInteger("size"), imageStream);
