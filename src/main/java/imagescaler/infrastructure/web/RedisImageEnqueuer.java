@@ -3,7 +3,6 @@ package imagescaler.infrastructure.web;
 import imagescaler.domain.Image;
 import imagescaler.domain.ImageEnqueuer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -17,7 +16,7 @@ public class RedisImageEnqueuer implements ImageEnqueuer {
     private StringRedisTemplate redisTemplate;
 
     @Autowired
-    RedisImageEnqueuer(@Qualifier("redisWeb") StringRedisTemplate redisTemplate) {
+    RedisImageEnqueuer(StringRedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
