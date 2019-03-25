@@ -20,6 +20,10 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
@@ -65,7 +69,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <start-class>imagescaler.infrastructure.web.ImageScaler</start-class>
+        <start-class>imagescaler.infrastructure.web.Web</start-class>
     </properties>
     <build>
         <plugins>

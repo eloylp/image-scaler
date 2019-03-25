@@ -1,29 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Trileuco HR Test App</title>
+    <title th:text="${appName}">${appName}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        #alert {
+            visibility: hidden;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
     <div class="row">
-        <div class="col-sm text-center">
-            <form>
-                <h1>Trileuco HR Test App</h1>
+        <div class="col-sm">
+            <div class="text-center">
+                <h1 th:text="${appName}"></h1>
                 <h6>Upload a new image</h6>
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" name="title" id="title"/><br>
+            </div>
+            <hr>
+            <form id="form">
+                <div class="form-group row">
+                    <label for="title" class="col-sm-2 col-form-label ">Title</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="title" required id="title"/><br>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label FOR="file">File</label>
-                    <input type="file" name="file" id="file"/><br>
+                <div class="form-group row">
+                    <label for="file" class="col-sm-2 col-form-label">File</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control-file" name="file" id="file"/><br>
+                    </div>
                 </div>
-                <button type="button" class="btn btn-primary" id="submit">Submit</button>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary" id="submit">Upload</button>
+                    <a href="/" class="btn btn-danger" role="button">Back</a>
+                </div>
             </form>
+            <hr>
+            <div class="alert alert-success" role="alert" id="alert">
+
+            </div>
         </div>
     </div>
 </div>
@@ -42,9 +61,33 @@
 <script>
   (() => {
 
+    const form = document.querySelector('#form')
     const submitButton = document.querySelector('#submit')
     const fileInput = document.querySelector('#file')
     const nameInput = document.querySelector('#title')
+    const alertBox = document.querySelector('#alert')
+
+    function hideAlert (seconds) {
+      setTimeout(() => {
+        alertBox.style.visibility = 'hidden'
+      }, seconds * 1000)
+    }
+
+    function notifyError (msg) {
+      alertBox.style.visibility = 'visible'
+      alertBox.className = 'alert alert-danger'
+      alertBox.innerHTML = msg
+      form.reset()
+      hideAlert(5)
+    }
+
+    function notifySuccess (msg) {
+      alertBox.style.visibility = 'visible'
+      alertBox.className = 'alert alert-success'
+      alertBox.innerHTML = msg
+      form.reset()
+      hideAlert(10)
+    }
 
     submitButton.addEventListener('click', async () => {
       const file = fileInput.files[0]
@@ -60,12 +103,19 @@
             'Content-Type': 'multipart/form-data',
           }
         })
-        alert(`image uploaded !! Your uuid: ${response.data.uuid}`)
+        const uuid = `${response.data.uuid}`
+        notifySuccess(`
+            Image uploaded !! <a href="/images/${uuid}" target="_blank">View my image</a></br>
+            Your uuid: <pre><code>${uuid}</code></pre>
+         `)
       } catch (e) {
-        alert(e)
+        notifyError(e)
       }
     })
+
   })()
+
+
 </script>
 </body>
 </html>

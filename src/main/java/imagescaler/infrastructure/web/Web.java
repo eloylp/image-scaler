@@ -15,11 +15,11 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
         "imagescaler.application.web",
         "imagescaler.infrastructure.analyzer",
         "imagescaler.infrastructure.persistence.mongo",
-        "imagescaler.infrastructure.web"
+        "imagescaler.infrastructure.web",
 })
 @EnableMongoRepositories(basePackages = {"imagescaler.infrastructure.persistence.mongo"})
-public class ImageScaler {
+public class Web {
     public static void main(String[] args) {
-        SpringApplication.run(ImageScaler.class, args);
+        SpringApplication.run(Web.class, args);
     }
 }
