@@ -11,22 +11,6 @@ A cloud ready service designed to upload pictures and scale them accordingly.
 * MongoDB as first storage layer.
 * Api doc with swagger.
 
-## Architecture
-Not a purely Domain Driven Design approach but oriented. It covers many 
-best practices to ensure the good reading and scalability of code.
-It has a clever separation of all infrastructure layers like storage, messaging
-analyzers and more.
-
-## Api
-An updated doc of the api can be reached through swagger at
-```bash
-http://your-host/swagger-ui.html
-```
-
-## Environment
-All the vars can be found in the [docker-compose.yml](docker-compose.yml) file
-
-
 ## Required to run
 * Java 1.8+
 * Maven
@@ -45,4 +29,24 @@ you can use to bring up all the stack easily:
 ## How to run tests
 ```bash
 mvn clean test
+```
+## Architecture
+Not a purely Domain Driven Design approach but oriented. It covers many 
+best practices to ensure the good reading and scalability of code.
+It has a clever separation of all infrastructure layers like storage, messaging
+analyzers and more.
+
+## Api
+An updated doc of the api can be reached through swagger at
+```bash
+http://your-host:port/swagger-ui.html
+```
+
+## Environment
+All the vars can be found in the [docker-compose.yml](docker-compose.yml) file
+
+## Health and status checks
+All can be found at:
+```bash
+http://your-host:port/actuator
 ```
