@@ -44,7 +44,7 @@ class ImageController {
     ) throws IOException, ImageScalerException {
         BufferedInputStream imageData = new BufferedInputStream(image.getInputStream());
         UploadImageResponse imageResponse = this.uploadImage.perform(new UploadImageRequest(name, imageData));
-        response.addCookie(new Cookie("Image-Scaler-Last-Upload", imageResponse.getUuid()));
+        response.addCookie(new Cookie("Image-Scaler-Last-Uploaded-Group", imageResponse.getGroupUuid()));
         return imageResponse;
     }
 

@@ -37,7 +37,7 @@ public class UploadImage {
             image.markAsOriginal();
             this.imageRepository.save(image);
             this.imageEnqueuer.perform(image);
-            return new UploadImageResponse(image.getUuid());
+            return new UploadImageResponse(image.getUuid(), image.getGroupUuid());
         } catch (IOException e) {
             throw new ImageScalerException("Cannot read image stream in upload.");
         }
