@@ -16,7 +16,11 @@ class TemplateController {
         model.addAttribute("appName", appName);
         return "upload";
     }
-
+    @GetMapping("/list")
+    public String list(Model model) {
+        model.addAttribute("appName", appName);
+        return "list";
+    }
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("appName", appName);
