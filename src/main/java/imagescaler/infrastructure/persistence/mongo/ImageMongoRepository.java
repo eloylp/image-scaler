@@ -5,8 +5,10 @@ import com.mongodb.client.gridfs.GridFSBucket;
 import com.mongodb.client.gridfs.GridFSBuckets;
 import com.mongodb.client.gridfs.GridFSFindIterable;
 import com.mongodb.client.gridfs.model.GridFSFile;
+import com.mongodb.client.model.Indexes;
 import imagescaler.domain.*;
 import org.apache.commons.io.IOUtils;
+import org.bson.BsonDocument;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.MongoDbFactory;
@@ -52,7 +54,7 @@ public class ImageMongoRepository implements ImageRepository {
     @Override
     public List<Image> findAll() throws ImageScalerException {
 
-        GridFSFindIterable files = gridFsOperations.find(new Query());
+        GridFSFindIterable files = gridFsOperations.find(new Query()).sort(Indexes.descending("uploadDate"));
         List<Image> result = new ArrayList<>();
 
         for (GridFSFile file : files) {
