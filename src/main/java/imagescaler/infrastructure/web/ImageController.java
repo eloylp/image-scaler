@@ -36,7 +36,7 @@ class ImageController {
         this.imageMongoRepository = imageMongoRepository;
     }
 
-    @PostMapping("/upload")
+    @PostMapping("/images")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public UploadImageResponse status(@RequestParam("image") MultipartFile image,
                                       @RequestParam("name") String name,

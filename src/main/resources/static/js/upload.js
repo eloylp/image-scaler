@@ -36,7 +36,7 @@
     try {
       const response = await axios({
         method: 'POST',
-        url: '/upload',
+        url: '/images',
         data: form,
         headers: {
           'Content-Type': 'multipart/form-data',
