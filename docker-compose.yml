@@ -6,11 +6,11 @@ services:
       context: .
     command: -Dloader.main=imagescaler.infrastructure.web.Web org.springframework.boot.loader.PropertiesLauncher
     ports:
-      - "3000:3000"
+      - "${HTTP_HOST_PORT}:8080"
     restart: always
     environment:
       - APP_NAME=${APP_NAME}
-      - HTTP_PORT=3000
+      - HTTP_PORT=8080
       - MONGO_URI=mongodb://mongodb/image_scaler
       - REDIS_HOST=redis
       - REDIS_PORT=6379
@@ -33,7 +33,7 @@ services:
       - REDIS_PORT=6379
       - TARGET_SCALES=100x100,300x300
       - TOPIC=process::images
-      - HTTP_PORT=3000
+      - HTTP_PORT=8080
     networks:
       - image-scaler
     depends_on:
