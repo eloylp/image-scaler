@@ -31,8 +31,8 @@ you can use to bring up all the stack easily:
 mvn clean test
 ```
 ## Architecture
-Not a purely Domain Driven Design approach but oriented. It covers many 
-best practices to ensure the good reading and scalability of code.
+A flavored Domain Driven Design. It covers many 
+best practices and patterns to ensure the good reading and scalability of code.
 It has a clever separation of all infrastructure layers like storage, messaging
 analyzers and more.
 
