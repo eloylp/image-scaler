@@ -81,9 +81,9 @@ public class ImageMongoRepository implements ImageRepository {
                 metadata.getInteger("width"),
                 metadata.getInteger("height"),
                 metadata.getInteger("size"),
-                scalerImageData
-        ).build();
-        scalerImage.setGroupUuid(new Uuid(metadata.getString("groupUuid")));
+                scalerImageData)
+                .withGroup(metadata.getString("groupUuid"))
+                .build();
         hydrateHiddenFields(metadata, scalerImage);
         return scalerImage;
     }

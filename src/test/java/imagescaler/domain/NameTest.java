@@ -11,7 +11,7 @@ import java.util.Collection;
 import static org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class ImageTest {
+public class NameTest {
 
     private final String name;
     private final boolean mustPass;
@@ -25,7 +25,7 @@ public class ImageTest {
         });
     }
 
-    public ImageTest(String name, boolean mustPass) {
+    public NameTest(String name, boolean mustPass) {
         this.name = name;
         this.mustPass = mustPass;
     }
