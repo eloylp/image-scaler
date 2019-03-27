@@ -6,15 +6,15 @@ public class Name {
     private final int minLength = 3;
 
     public Name(String value) throws ImageScalerException {
-        checkValue(value);
-        this.value = value;
+        this.value = checkValue(value);
     }
 
-    private void checkValue(String value) throws ImageScalerException {
+    private String checkValue(String value) throws ImageScalerException {
 
         if (value.length() < minLength) {
             throw new ImageScalerException("The name must be at least " + minLength + " characters");
         }
+        return value;
     }
 
     @Override

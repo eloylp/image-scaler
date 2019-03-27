@@ -8,6 +8,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.runners.Parameterized.*;
 
 
@@ -42,7 +43,9 @@ public class ScaleTest {
     @Test
     public void testAcceptedNames() throws ImageScalerException {
         if (mustPass) {
-            new Scale(width, height);
+            Scale scale = new Scale(width, height);
+            assertEquals(width, scale.getWidth());
+            assertEquals(height, scale.getHeight());
         } else {
             Assertions.assertThrows(ImageScalerException.class, () -> new Scale(width, height));
         }
