@@ -19,7 +19,7 @@ public class ImageResponse {
     }
 
     public String getName() {
-        return image.getName();
+        return image.getName().toString();
     }
 
     public String getContentType() {

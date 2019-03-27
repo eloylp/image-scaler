@@ -39,7 +39,7 @@ public class ImageMongoRepository implements ImageRepository {
     @Override
     public void save(Image image) {
         BasicDBObject metaData = new BasicDBObject();
-        metaData.put("name", image.getName());
+        metaData.put("name", image.getName().toString());
         metaData.put("uuid", image.getUuid().toString());
         metaData.put("groupUuid", image.getGroupUuid().toString());
         metaData.put("width", image.getWidth());
@@ -47,7 +47,7 @@ public class ImageMongoRepository implements ImageRepository {
         metaData.put("contentType", image.getContentType());
         metaData.put("size", image.getSize());
         metaData.put("original", image.isOriginal());
-        gridFsOperations.store(new ByteArrayInputStream(image.getData()), image.getName(), image.getContentType(), metaData);
+        gridFsOperations.store(new ByteArrayInputStream(image.getData()), image.getName().toString(), image.getContentType(), metaData);
     }
 
     @Override
@@ -80,11 +80,11 @@ public class ImageMongoRepository implements ImageRepository {
             }
         }
 
-        scalerImage = new Image(
-                metadata.getString("name"),
+        scalerImage = new ImageBuilder(
+                new Name(metadata.getString("name")),
                 imageInfo,
                 scalerImageData
-        );
+        ).build();
         scalerImage.setGroupUuid(new Uuid(metadata.getString("groupUuid")));
         hydrateHiddenFields(metadata, scalerImage);
         return scalerImage;

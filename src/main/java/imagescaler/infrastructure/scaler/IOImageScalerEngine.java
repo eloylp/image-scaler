@@ -41,11 +41,11 @@ public class IOImageScalerEngine implements ImageScalerEngine {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             String imageFormatter = this.imageFormatterCalculator.perform(original.getContentType());
             ImageIO.write(resizedImage, imageFormatter, outputStream);
-            return new Image(
+            return new ImageBuilder(
                     original.getName(),
                     new ImageInfo(new ContentType(original.getContentType()), scale, outputStream.size()),
                     outputStream.toByteArray()
-            );
+            ).build();
         } catch (IOException e) {
             throw new ImageScalerException("Cannot scale image: " + original.getUuid() + "due to error: " + e.getMessage());
         }

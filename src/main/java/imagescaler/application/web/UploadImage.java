@@ -25,15 +25,17 @@ public class UploadImage {
 
         try {
 
+            Name imageName = new Name(uploadImageRequest.getName());
+
             byte[] imageData = new byte[uploadImageRequest.getData().available()];
             DataInputStream dataInputStream = new DataInputStream(uploadImageRequest.getData());
             dataInputStream.readFully(imageData);
             ImageInfo imageInfo = this.imageAnalyzer.perform(imageData);
-            Image image = new Image(
-                    uploadImageRequest.getName(),
+            Image image = new ImageBuilder(
+                    imageName,
                     imageInfo,
                     imageData
-            );
+            ).build();
             image.markAsOriginal();
             this.imageRepository.save(image);
             this.imageEnqueuer.perform(image);

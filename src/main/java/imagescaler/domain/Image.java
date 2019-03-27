@@ -4,12 +4,12 @@ public class Image {
 
     private final Uuid uuid;
     private Uuid groupUuid;
-    private final String name;
+    private final Name name;
     private final ImageInfo imageInfo;
     private final byte[] data;
     private boolean original;
 
-    public Image(String name, ImageInfo imageInfo, byte[] data) {
+    public Image(Name name, ImageInfo imageInfo, byte[] data) {
         this.uuid = new Uuid();
         this.groupUuid = new Uuid();
         this.name = name;
@@ -30,7 +30,7 @@ public class Image {
         this.groupUuid = groupUuid;
     }
 
-    public String getName() {
+    public Name getName() {
         return name;
     }
 
