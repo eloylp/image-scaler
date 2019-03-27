@@ -26,15 +26,14 @@ public class IOImageScalerEngine implements ImageScalerEngine {
             graphics.dispose();
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            byte[] imageData = outputStream.toByteArray();
-            ImageIO.write(resizedImage, "", outputStream);
+            ImageIO.write(resizedImage, original.getImageInfo().getContentType().split("/")[1], outputStream);
             return new Image(
                     original.getName(),
                     new ImageInfo(original.getImageInfo().getContentType(), scale, outputStream.size()),
-                    imageData
+                    outputStream.toByteArray()
             );
         } catch (IOException e) {
-            throw new ImageScalerException("Cannot scale image: " + original.getUuid());
+            throw new ImageScalerException("Cannot scale image: " + original.getUuid() + "due to error: " + e.getMessage());
         }
     }
 }
