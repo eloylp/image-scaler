@@ -1,4 +1,3 @@
-
 async function getImages () {
   try {
     const response = await axios.get('/images')
@@ -8,14 +7,14 @@ async function getImages () {
   }
 }
 
-async function getImage (image) {
+async function getImage ({ uuid, width, height }) {
   const placeholderGeneratorUrl = `https://via.placeholder.com`
   try {
-    const localImageUrl = `/images/${image.uuid}`
+    const localImageUrl = `/images/${uuid}`
     await axios.get(localImageUrl)
     return localImageUrl
   } catch (err) {
-    return `${placeholderGeneratorUrl}/${image.imageInfo.scale.width}x${image.imageInfo.scale.height}`
+    return `${placeholderGeneratorUrl}/${width}x${height}`
   }
 }
 
@@ -53,8 +52,8 @@ function getCookie (cname) {
 }
 
 function orderGroup (group) {
-  return group.sort(({ imageInfo: iia }, { imageInfo: iib }) => {
-    return iia.scale.width * iia.scale.height - iib.scale.width * iib.scale.height
+  return group.sort(({ width: widthA, height: heightA }, { width: widthB, height: heightB }) => {
+    return widthA * heightA - widthB * heightB
   })
 }
 
@@ -68,8 +67,8 @@ function orderImageStore (imageStore) {
 
 function drawGroup (container, group) {
 
-  const images = group.map(({ data, name, original, imageInfo }) => {
-    const caption = original ? 'Original' : `${imageInfo.scale.width}x${imageInfo.scale.height}`
+  const images = group.map(({ data, name, original, width, height }) => {
+    const caption = original ? 'Original' : `${width}x${height}`
 
     return `<figure class="figure">
       <img src="${data}" class="rounded float-left" alt="${name}">

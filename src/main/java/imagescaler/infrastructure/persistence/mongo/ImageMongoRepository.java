@@ -8,7 +8,6 @@ import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mongodb.client.model.Indexes;
 import imagescaler.domain.*;
 import org.apache.commons.io.IOUtils;
-import org.bson.BsonDocument;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.MongoDbFactory;
@@ -28,8 +27,8 @@ import java.util.List;
 @Component
 public class ImageMongoRepository implements ImageRepository {
 
-    private GridFsOperations gridFsOperations;
-    private GridFSBucket gridFSBuckets;
+    private final GridFsOperations gridFsOperations;
+    private final GridFSBucket gridFSBuckets;
 
     @Autowired
     ImageMongoRepository(GridFsOperations gridFsOperations, MongoDbFactory mongoDbFactory) {
@@ -41,14 +40,14 @@ public class ImageMongoRepository implements ImageRepository {
     public void save(Image image) {
         BasicDBObject metaData = new BasicDBObject();
         metaData.put("name", image.getName());
-        metaData.put("uuid", image.getUuid());
-        metaData.put("groupUuid", image.getGroupUuid());
-        metaData.put("width", image.getImageInfo().getScale().getWidth());
-        metaData.put("height", image.getImageInfo().getScale().getHeight());
-        metaData.put("contentType", image.getImageInfo().getContentType());
-        metaData.put("size", image.getImageInfo().getSize());
+        metaData.put("uuid", image.getUuid().toString());
+        metaData.put("groupUuid", image.getGroupUuid().toString());
+        metaData.put("width", image.getWidth());
+        metaData.put("height", image.getHeight());
+        metaData.put("contentType", image.getContentType());
+        metaData.put("size", image.getSize());
         metaData.put("original", image.isOriginal());
-        gridFsOperations.store(new ByteArrayInputStream(image.getData()), image.getName(), image.getImageInfo().getContentType(), metaData);
+        gridFsOperations.store(new ByteArrayInputStream(image.getData()), image.getName(), image.getContentType(), metaData);
     }
 
     @Override
@@ -67,7 +66,9 @@ public class ImageMongoRepository implements ImageRepository {
     private Image mapImage(GridFSFile gridFSFile, boolean mapData) throws ImageScalerException {
         Document metadata = gridFSFile.getMetadata();
         Scale scale = new Scale(metadata.getInteger("width"), metadata.getInteger("width"));
-        ImageInfo imageInfo = new ImageInfo(metadata.getString("contentType"), scale, metadata.getInteger("size"));
+        ImageInfo imageInfo = new ImageInfo(
+                new ContentType(metadata.getString("contentType")), scale, metadata.getInteger("size")
+        );
         Image scalerImage;
         byte[] scalerImageData = null;
         if (mapData) {
@@ -84,7 +85,7 @@ public class ImageMongoRepository implements ImageRepository {
                 imageInfo,
                 scalerImageData
         );
-        scalerImage.setGroupUuid(metadata.getString("groupUuid"));
+        scalerImage.setGroupUuid(new Uuid(metadata.getString("groupUuid")));
         hydrateHiddenFields(metadata, scalerImage);
         return scalerImage;
     }
@@ -95,7 +96,7 @@ public class ImageMongoRepository implements ImageRepository {
             Class scalerImageClazz = scalerImage.getClass();
             Field uuid = scalerImageClazz.getDeclaredField("uuid");
             uuid.setAccessible(true);
-            uuid.set(scalerImage, metadata.getString("uuid"));
+            uuid.set(scalerImage, new Uuid(metadata.getString("uuid")));
 
             Field original = scalerImageClazz.getDeclaredField("original");
             original.setAccessible(true);

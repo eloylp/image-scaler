@@ -1,7 +1,8 @@
 package imagescaler.infrastructure.scaler;
 
-import imagescaler.domain.*;
 import imagescaler.domain.Image;
+import imagescaler.domain.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
@@ -14,22 +15,35 @@ import java.io.IOException;
 @Component
 public class IOImageScalerEngine implements ImageScalerEngine {
 
+
+    private final BufferedImageTypeCalculator bufferedImageTypeCalculator;
+    private final ImageFormatterCalculator imageFormatterCalculator;
+
+    @Autowired
+    IOImageScalerEngine(BufferedImageTypeCalculator bufferedImageTypeCalculator, ImageFormatterCalculator imageFormatterCalculator) {
+
+        this.bufferedImageTypeCalculator = bufferedImageTypeCalculator;
+        this.imageFormatterCalculator = imageFormatterCalculator;
+    }
+
     @Override
     public Image scaleImageTo(Image original, Scale scale) throws ImageScalerException {
         try {
 
             BufferedImage originalImage = ImageIO.read(new ByteArrayInputStream(original.getData()));
             java.awt.Image originalImageScaledInstance = originalImage.getScaledInstance(scale.getWidth(), scale.getHeight(), java.awt.Image.SCALE_SMOOTH);
-            BufferedImage resizedImage = new BufferedImage(scale.getWidth(), scale.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            int bufferedImageType = bufferedImageTypeCalculator.perform(original.getContentType());
+            BufferedImage resizedImage = new BufferedImage(scale.getWidth(), scale.getHeight(), bufferedImageType);
             Graphics2D graphics = resizedImage.createGraphics();
             graphics.drawImage(originalImageScaledInstance, 0, 0, null);
             graphics.dispose();
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            ImageIO.write(resizedImage, original.getImageInfo().getContentType().split("/")[1], outputStream);
+            String imageFormatter = this.imageFormatterCalculator.perform(original.getContentType());
+            ImageIO.write(resizedImage, imageFormatter, outputStream);
             return new Image(
                     original.getName(),
-                    new ImageInfo(original.getImageInfo().getContentType(), scale, outputStream.size()),
+                    new ImageInfo(new ContentType(original.getContentType()), scale, outputStream.size()),
                     outputStream.toByteArray()
             );
         } catch (IOException e) {

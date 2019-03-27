@@ -2,31 +2,31 @@ package imagescaler.domain;
 
 public class Image {
 
-    private String uuid;
-    private String groupUuid;
-    private String name;
-    private ImageInfo imageInfo;
-    private byte[] data;
+    private final Uuid uuid;
+    private Uuid groupUuid;
+    private final String name;
+    private final ImageInfo imageInfo;
+    private final byte[] data;
     private boolean original;
 
     public Image(String name, ImageInfo imageInfo, byte[] data) {
-        this.uuid = java.util.UUID.randomUUID().toString();
-        this.groupUuid = java.util.UUID.randomUUID().toString();
+        this.uuid = new Uuid();
+        this.groupUuid = new Uuid();
         this.name = name;
         this.imageInfo = imageInfo;
         this.data = data;
         this.original = false;
     }
 
-    public String getUuid() {
+    public Uuid getUuid() {
         return uuid;
     }
 
-    public String getGroupUuid() {
+    public Uuid getGroupUuid() {
         return groupUuid;
     }
 
-    public void setGroupUuid(String groupUuid) {
+    public void setGroupUuid(Uuid groupUuid) {
         this.groupUuid = groupUuid;
     }
 
@@ -34,8 +34,20 @@ public class Image {
         return name;
     }
 
-    public ImageInfo getImageInfo() {
-        return imageInfo;
+    public String getContentType() {
+        return imageInfo.getContentType().toString();
+    }
+
+    public int getSize() {
+        return imageInfo.getSize();
+    }
+
+    public int getHeight() {
+        return imageInfo.getScale().getHeight();
+    }
+
+    public int getWidth() {
+        return imageInfo.getScale().getWidth();
     }
 
     public byte[] getData() {

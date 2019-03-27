@@ -2,9 +2,9 @@ package imagescaler.domain;
 
 public class ImageBuilder {
 
-    private String name;
-    private ImageInfo imageInfo;
-    private byte[] data;
+    private final String name;
+    private final ImageInfo imageInfo;
+    private final byte[] data;
 
     public ImageBuilder(String name, ImageInfo imageInfo, byte[] data) {
         this.name = name;

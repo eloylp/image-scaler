@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public class ImageScalerImpl implements ImageScaler {
 
-    private ImageScalerEngine imageScalerEngine;
+    private final ImageScalerEngine imageScalerEngine;
     @Autowired
     ImageScalerImpl(ImageScalerEngine imageScalerEngine) {
         this.imageScalerEngine = imageScalerEngine;

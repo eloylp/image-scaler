@@ -2,8 +2,8 @@ package imagescaler.domain;
 
 public class ScaleBuilder {
 
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     public ScaleBuilder(int width, int height) {
         this.width = width;

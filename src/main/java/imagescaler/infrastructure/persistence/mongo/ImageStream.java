@@ -3,9 +3,9 @@ package imagescaler.infrastructure.persistence.mongo;
 import java.io.InputStream;
 
 public class ImageStream {
-    private String contentType;
-    private int contentLength;
-    private InputStream data;
+    private final String contentType;
+    private final int contentLength;
+    private final InputStream data;
 
     ImageStream(String contentType, int contentLength, InputStream data) {
         this.contentType = contentType;

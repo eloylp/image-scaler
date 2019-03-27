@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MessageReceiver {
-    private ScaleImage scaleImage;
-    private StringRedisTemplate redisTemplate;
+    private final ScaleImage scaleImage;
+    private final StringRedisTemplate redisTemplate;
 
     @Value("${scaler.target.scales}")
     private String scales;
@@ -28,10 +28,10 @@ public class MessageReceiver {
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageReceiver.class);
 
     public void receiveMessage(String message) {
-        LOGGER.info("Processing image <" + message + ">");
+        LOGGER.info("Processing image " + message);
         try {
             this.scaleImage.perform(message, scales);
-            LOGGER.info("Image <" + message + "> processed.");
+            LOGGER.info("Image " + message + " processed.");
         } catch (ImageScalerException e) {
             this.redisTemplate.convertAndSend(this.topic, message);
             LOGGER.error("Returning image to queue due to error : " + e.getMessage());

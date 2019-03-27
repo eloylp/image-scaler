@@ -17,8 +17,8 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Parameterized.class)
 public class ScalesMapperTest {
 
-    private String scaleSample;
-    private boolean mustPass;
+    private final String scaleSample;
+    private final boolean mustPass;
 
     @Parameters
     public static Collection<Object[]> samples() {

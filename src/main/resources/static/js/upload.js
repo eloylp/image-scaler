@@ -48,7 +48,7 @@
             Your uuid: <pre><code>${uuid}</code></pre>
          `)
     } catch (e) {
-      notifyError(e)
+      notifyError(e.response.data.message)
     }
   })
 

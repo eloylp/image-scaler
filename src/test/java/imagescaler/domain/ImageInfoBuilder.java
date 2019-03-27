@@ -2,9 +2,9 @@ package imagescaler.domain;
 
 public class ImageInfoBuilder {
 
-    private String contentType;
-    private Scale scale;
-    private int size;
+    private final String contentType;
+    private final Scale scale;
+    private final int size;
 
     public ImageInfoBuilder(String contentType, Scale scale, int size) {
         this.contentType = contentType;
@@ -12,7 +12,7 @@ public class ImageInfoBuilder {
         this.size = size;
     }
 
-    public ImageInfo build() {
-        return new ImageInfo(contentType, scale, size);
+    public ImageInfo build() throws ImageScalerException {
+        return new ImageInfo(new ContentType(contentType), scale, size);
     }
 }

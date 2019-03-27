@@ -12,24 +12,30 @@ A cloud ready service designed to upload pictures and scale them accordingly.
 * Api doc with swagger.
 
 ## Required to run
-* Java 1.8+
+* Java 1.8+ (Open)
 * Maven
 * Docker compose
 
 ## How to run
 This project has a docker compose file.
 There is a nice compile and run script in the project root that
-you can use to bring up all the stack easily:
+you can use to run unit tests and bring up all the stack easily:
 
 ```bash
 # First, param the name for your app. Second param the exposed port on your machine. 
 ./build_and_run.sh "Your desired service name" 8080
 ```
 
-## How to run tests
+## How to run unit tests
 ```bash
-mvn clean test
+mvn test
 ```
+
+## How to run integration tests
+```bash
+mvn integration-test
+```
+
 ## Architecture
 A flavored Domain Driven Design. It covers many 
 best practices and patterns to ensure the good reading and scalability of code.

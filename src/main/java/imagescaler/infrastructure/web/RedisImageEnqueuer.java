@@ -13,7 +13,7 @@ public class RedisImageEnqueuer implements ImageEnqueuer {
     @Value("${scaler.topic}")
     private String topic;
 
-    private StringRedisTemplate redisTemplate;
+    private final StringRedisTemplate redisTemplate;
 
     @Autowired
     RedisImageEnqueuer(StringRedisTemplate redisTemplate) {
@@ -22,6 +22,6 @@ public class RedisImageEnqueuer implements ImageEnqueuer {
 
     @Override
     public void perform(Image image) {
-        this.redisTemplate.convertAndSend(this.topic, image.getUuid());
+        this.redisTemplate.convertAndSend(this.topic, image.getUuid().toString());
     }
 }

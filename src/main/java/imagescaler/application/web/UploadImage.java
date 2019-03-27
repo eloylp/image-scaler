@@ -12,7 +12,7 @@ public class UploadImage {
 
     private final ImageAnalyzer imageAnalyzer;
     private final ImageRepository imageRepository;
-    private ImageEnqueuer imageEnqueuer;
+    private final ImageEnqueuer imageEnqueuer;
 
     @Autowired
     UploadImage(ImageAnalyzer imageAnalyzer, ImageRepository imageRepository, ImageEnqueuer imageEnqueuer) {
@@ -37,7 +37,7 @@ public class UploadImage {
             image.markAsOriginal();
             this.imageRepository.save(image);
             this.imageEnqueuer.perform(image);
-            return new UploadImageResponse(image.getUuid(), image.getGroupUuid());
+            return new UploadImageResponse(image.getUuid().toString(), image.getGroupUuid().toString());
         } catch (IOException e) {
             throw new ImageScalerException("Cannot read image stream in upload.");
         }

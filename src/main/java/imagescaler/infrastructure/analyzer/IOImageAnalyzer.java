@@ -1,9 +1,6 @@
 package imagescaler.infrastructure.analyzer;
 
-import imagescaler.domain.ImageAnalyzer;
-import imagescaler.domain.ImageInfo;
-import imagescaler.domain.ImageScalerException;
-import imagescaler.domain.Scale;
+import imagescaler.domain.*;
 import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
@@ -17,10 +14,10 @@ public class IOImageAnalyzer implements ImageAnalyzer {
     @Override
     public ImageInfo perform(byte[] image) throws ImageScalerException {
         try {
-            String mimeType = URLConnection.guessContentTypeFromStream(new ByteArrayInputStream(image));
+            ContentType contentType = new ContentType(URLConnection.guessContentTypeFromStream(new ByteArrayInputStream(image)));
             BufferedImage ioImage = ImageIO.read(new ByteArrayInputStream(image));
             Scale scale = new Scale(ioImage.getWidth(), ioImage.getHeight());
-            return new ImageInfo(mimeType, scale, image.length);
+            return new ImageInfo(contentType, scale, image.length);
         } catch (IOException e) {
             throw new ImageScalerException("Cannot read input image in analyzer.");
         }

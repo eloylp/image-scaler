@@ -9,9 +9,9 @@ import java.util.List;
 @Component
 public class ScaleImage {
 
-    private ScalesMapper scalesMapper;
-    private ImageScaler imageScaler;
-    private ImageRepository imageRepository;
+    private final ScalesMapper scalesMapper;
+    private final ImageScaler imageScaler;
+    private final ImageRepository imageRepository;
 
     @Autowired
     ScaleImage(ScalesMapper scalesMapper, ImageScaler imageScaler, ImageRepository imageRepository) {

@@ -4,8 +4,8 @@ import java.io.InputStream;
 
 public class UploadImageRequest {
 
-    private String name;
-    private InputStream data;
+    private final String name;
+    private final InputStream data;
 
     public UploadImageRequest(String name, InputStream data) {
         this.name = name;

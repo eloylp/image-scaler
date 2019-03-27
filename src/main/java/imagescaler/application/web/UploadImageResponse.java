@@ -2,8 +2,8 @@ package imagescaler.application.web;
 
 public class UploadImageResponse {
 
-    private String uuid;
-    private String groupUuid;
+    private final String uuid;
+    private final String groupUuid;
 
     UploadImageResponse(String uuid, String groupUuid) {
         this.uuid = uuid;

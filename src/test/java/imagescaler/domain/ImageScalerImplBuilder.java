@@ -2,7 +2,7 @@ package imagescaler.domain;
 
 public class ImageScalerImplBuilder {
 
-    private ImageScalerEngine imageScalerEngine;
+    private final ImageScalerEngine imageScalerEngine;
 
     public ImageScalerImplBuilder(ImageScalerEngine imageScalerEngine) {
         this.imageScalerEngine = imageScalerEngine;
