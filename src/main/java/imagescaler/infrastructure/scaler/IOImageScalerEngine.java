@@ -43,7 +43,10 @@ public class IOImageScalerEngine implements ImageScalerEngine {
             ImageIO.write(resizedImage, imageFormatter, outputStream);
             return new ImageBuilder(
                     original.getName(),
-                    new ImageInfo(new ContentType(original.getContentType()), scale, outputStream.size()),
+                    original.getContentType(),
+                    scale.getWidth(),
+                    scale.getHeight(),
+                    outputStream.size(),
                     outputStream.toByteArray()
             ).build();
         } catch (IOException e) {

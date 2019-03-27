@@ -65,10 +65,6 @@ public class ImageMongoRepository implements ImageRepository {
 
     private Image mapImage(GridFSFile gridFSFile, boolean mapData) throws ImageScalerException {
         Document metadata = gridFSFile.getMetadata();
-        Scale scale = new Scale(metadata.getInteger("width"), metadata.getInteger("width"));
-        ImageInfo imageInfo = new ImageInfo(
-                new ContentType(metadata.getString("contentType")), scale, metadata.getInteger("size")
-        );
         Image scalerImage;
         byte[] scalerImageData = null;
         if (mapData) {
@@ -79,10 +75,12 @@ public class ImageMongoRepository implements ImageRepository {
                 throw new ImageScalerException("Cannot retrieve file from storage driver: " + e.getMessage());
             }
         }
-
         scalerImage = new ImageBuilder(
-                new Name(metadata.getString("name")),
-                imageInfo,
+                metadata.getString("name"),
+                metadata.getString("contentType"),
+                metadata.getInteger("width"),
+                metadata.getInteger("height"),
+                metadata.getInteger("size"),
                 scalerImageData
         ).build();
         scalerImage.setGroupUuid(new Uuid(metadata.getString("groupUuid")));

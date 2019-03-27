@@ -50,14 +50,13 @@ public class ImageScalerIT {
 
         Image image = new ImageBuilder(
                 this.testSample.file,
-                new ImageInfoBuilder(
-                        this.testSample.contentType,
-                        new ScaleBuilder(265, 314).build(), this.testSample.size
-                ).build(), imageData
+                this.testSample.contentType,
+                265, 314, this.testSample.size
+                , imageData
         ).build();
 
-        Scale scaleA = new ScaleBuilder(50, 50).build();
-        Scale scaleB = new ScaleBuilder(30, 30).build();
+        Scale scaleA = new Scale(50, 50);
+        Scale scaleB = new Scale(30, 30);
 
         List<Scale> scales = new ArrayList<>();
         scales.add(scaleA);

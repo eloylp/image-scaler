@@ -12,7 +12,7 @@ public class ImageScalerImpl implements ImageScaler {
 
     private final ImageScalerEngine imageScalerEngine;
     @Autowired
-    ImageScalerImpl(ImageScalerEngine imageScalerEngine) {
+    public ImageScalerImpl(ImageScalerEngine imageScalerEngine) {
         this.imageScalerEngine = imageScalerEngine;
     }
 

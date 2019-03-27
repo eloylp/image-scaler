@@ -1,7 +1,7 @@
 package imagescaler.infrastructure.scaler;
 
-public class IOImageScalerEngineBuilder {
-    public IOImageScalerEngine build() {
+public class IOImageScalerEngineFactory {
+    public IOImageScalerEngine get() {
         return new IOImageScalerEngine(new BufferedImageTypeCalculator(), new ImageFormatterCalculator());
     }
 }
