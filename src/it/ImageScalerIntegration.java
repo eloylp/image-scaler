@@ -6,6 +6,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.*;
+
 public class ImageScalerIntegration {
 
     @Test
@@ -16,7 +18,7 @@ public class ImageScalerIntegration {
 
         Image image = new ImageBuilder(
                 "tux.png",
-                new ImageInfoBuilder("image/png", new ScaleBuilder(265, 314).build(),11910).build(),
+                new ImageInfoBuilder("image/png", new ScaleBuilder(265, 314).build(), 11910).build(),
                 imageData).build();
 
         Scale scaleA = new ScaleBuilder(50, 50).build();
@@ -27,6 +29,10 @@ public class ImageScalerIntegration {
         scales.add(scaleB);
 
         List<Image> result = imageScaler.scaleImageTo(image, scales);
+
+        for (Image resultantImage : result) {
+            assertTrue("Image copies must have at least some bytes.",resultantImage.getData().length > 0);
+        }
 
     }
 }
