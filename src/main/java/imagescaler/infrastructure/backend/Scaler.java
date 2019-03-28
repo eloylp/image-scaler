@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
         @PropertySource("classpath:/properties/backend.properties"),
 })
 @ComponentScan(basePackages = {
-        "imagescaler.application.backend",
+        "imagescaler.application.scaler",
         "imagescaler.domain",
         "imagescaler.infrastructure.backend",
         "imagescaler.infrastructure.scaler",

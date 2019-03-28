@@ -1,4 +1,4 @@
-package imagescaler.application.backend;
+package imagescaler.application.scaler;
 
 import imagescaler.domain.ImageScalerException;
 import imagescaler.domain.Scale;

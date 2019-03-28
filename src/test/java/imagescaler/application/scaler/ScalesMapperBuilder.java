@@ -1,4 +1,4 @@
-package imagescaler.application.backend;
+package imagescaler.application.scaler;
 
 
 class ScalesMapperBuilder {

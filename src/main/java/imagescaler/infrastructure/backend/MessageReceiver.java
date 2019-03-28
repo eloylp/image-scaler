@@ -1,6 +1,6 @@
 package imagescaler.infrastructure.backend;
 
-import imagescaler.application.backend.ScaleImage;
+import imagescaler.application.scaler.ScaleImage;
 import imagescaler.domain.ImageScalerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
