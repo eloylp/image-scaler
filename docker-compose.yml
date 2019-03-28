@@ -21,7 +21,7 @@ services:
     depends_on:
       - redis
       - mongodb
-  backend:
+  scaler:
     build:
       dockerfile: docker/Dockerfile
       context: .
