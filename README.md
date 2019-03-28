@@ -1,6 +1,6 @@
 # Image scaler
 
-A cloud ready service designed to upload pictures and scale them based on a configuration.
+A cloud ready service designed to upload images and scale them based on a configuration.
 
 ## Key features
 * Dynamic configuration for scaling pictures.
@@ -8,16 +8,16 @@ A cloud ready service designed to upload pictures and scale them based on a conf
 * Status and health http endpoints for each process.
 * Asynchronous scaling of images on a separate backend process.
 * All data external to containers.
-* MongoDB GridFs as first storage layer.
+* MongoDB using GridFs as first storage layer.
 * Api doc with swagger.
 
 ## Required to run
-* Java 1.8 (Open JRE)
+* Java 1.8+ (Open JRE/JDK)
 * Maven
 * Docker compose
 
 ## How to run
-This project has a docker compose file.
+This project has a [docker-compose.yml](docker-compose.yml) file.
 There is a nice compile and run script in the project root that
 you can use to run unit tests and bring up all the stack easily:
 
@@ -38,7 +38,7 @@ mvn integration-test
 ```
 
 ## Architecture
-A layered architecture. Domain Driven Design approaches. It covers many 
+A layered architecture with some domain driven design traits. It covers many 
 best practices and patterns to ensure the good reading and scalability of code.
 It has a clever separation of all infrastructure layers like storage, messaging
 analyzers and more.

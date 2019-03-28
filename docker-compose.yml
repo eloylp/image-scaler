@@ -53,7 +53,7 @@ services:
     volumes:
       - mongodb:/data/db
     ports:
-      - 27017:27017
+      - 27017
     networks:
       image-scaler:
         aliases:
