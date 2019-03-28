@@ -9,15 +9,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-class ImageScalerImplTest  {
+class ImageScalerServiceTest {
 
-    private ImageScalerImpl sut;
+    private ImageScalerService sut;
     private ImageScalerEngine imageScalerEngine;
 
     @BeforeEach
     void setUp() {
         imageScalerEngine = mock(ImageScalerEngine.class);
-        sut = new ImageScalerImpl(imageScalerEngine);
+        sut = new ImageScalerService(imageScalerEngine);
     }
 
     @Test

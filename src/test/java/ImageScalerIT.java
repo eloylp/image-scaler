@@ -44,7 +44,7 @@ public class ImageScalerIT {
 
     @Test
     public void testScaling() throws IOException, ImageScalerException {
-        ImageScalerImpl imageScaler = new ImageScalerFactory().get();
+        ImageScalerService imageScaler = new ImageScalerServiceFactory().get();
 
         byte[] imageData = IOUtils.toByteArray(this.getClass().getResource(this.testSample.file));
 

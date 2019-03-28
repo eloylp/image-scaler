@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ImageScalerImpl implements ImageScaler {
+public class ImageScalerService implements ImageScaler {
 
     private final ImageScalerEngine imageScalerEngine;
     @Autowired
-    public ImageScalerImpl(ImageScalerEngine imageScalerEngine) {
+    public ImageScalerService(ImageScalerEngine imageScalerEngine) {
         this.imageScalerEngine = imageScalerEngine;
     }
 
