@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 
-if [ -z "$1" ] || [ -z "$2" ]
-then
+if [ -z "$1" ] || [ -z "$2" ]; then
     echo "We need the app name as first parameter. As second, your host port."
     exit 1
 fi
