@@ -1,6 +1,6 @@
 # Image scaler
 
-A cloud ready service designed to upload pictures and scale them accordingly.
+A cloud ready service designed to upload pictures and scale them based on a configuration.
 
 ## Key features
 * Dynamic configuration for scaling pictures.
@@ -8,11 +8,11 @@ A cloud ready service designed to upload pictures and scale them accordingly.
 * Status and health http endpoints for each process.
 * Asynchronous scaling of images on a separate backend process.
 * All data external to containers.
-* MongoDB as first storage layer.
+* MongoDB GridFs as first storage layer.
 * Api doc with swagger.
 
 ## Required to run
-* Java 1.8+ (Open)
+* Java 1.8 (Open JRE)
 * Maven
 * Docker compose
 
@@ -25,6 +25,7 @@ you can use to run unit tests and bring up all the stack easily:
 # First, param the name for your app. Second param the exposed port on your machine. 
 ./build_and_run.sh "Your desired service name" 8080
 ```
+Go to http://your-host:port
 
 ## How to run unit tests
 ```bash
@@ -37,7 +38,7 @@ mvn integration-test
 ```
 
 ## Architecture
-A flavored Domain Driven Design. It covers many 
+A layered architecture. Domain Driven Design approaches. It covers many 
 best practices and patterns to ensure the good reading and scalability of code.
 It has a clever separation of all infrastructure layers like storage, messaging
 analyzers and more.
